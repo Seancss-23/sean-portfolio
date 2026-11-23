@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sean Okpara · Full-Stack Developer</title>
+  <meta name="description" content="Sean Okpara is a 300-level Computer Science student at Babcock University and a full-stack developer building and securing web apps with Node.js, Next.js and serverless functions.">
+  <meta name="theme-color" content="#FAF7F0">
+
+  <link rel="icon" type="image/png" href="images/icon-192.png">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // Apply a saved theme choice before the page paints, so there is no flash of the wrong colours
+    try {
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    } catch (error) {}
+  </script>
+
+  <!-- One Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Main">
+      <ul role="list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Work</a></li>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" id="theme-toggle">Dark</button>
+  </header>
+
+  <main id="main">
+
+    <!-- 1. Hero -->
+    <section id="home" class="hero" aria-labelledby="hero-title">
+      <p class="hero-prompt" id="typed-line">$ whoami</p>
+      <h1 id="hero-title">Sean Okpara</h1>
+      <p class="hero-subtitle">Full-Stack Developer · Node.js, Next.js &amp; Serverless</p>
+      <p class="badge"><span class="badge-dot" aria-hidden="true"></span>Available for SIWES · Jan–Jun 2027</p>
+      <p class="hero-actions">
+        <a class="button button-primary" href="#projects">See my work</a>
+        <a class="button button-secondary" href="Sean_Okpara_CV_26_27.pdf" download>Download CV</a>
+      </p>
+    </section>
+
+    <!-- 2. About -->
+    <section id="about" class="section section-alt" aria-labelledby="about-title">
+      <h2 id="about-title">About</h2>
+      <figure class="photo photo-portrait" data-label="Photo: Sean portrait (4:5)">
+        <img src="images/sean-01-portrait.jpg" width="880" height="1168" loading="lazy" alt="Sean Okpara in glasses and a black shirt, looking at the camera">      </figure>
+      <p>I'm a 300-level Computer Science student at Babcock University and a full-stack developer. I build, deploy and secure web apps with Node.js, Next.js and serverless functions, and I use AI as one part of the stack, not the whole product. I care about the stuff users never see: rate limits, tests, and keeping secrets out of the browser.</p>
+      <dl class="facts">
+        <div>
+          <dt>Location</dt>
+          <dd>Lagos, Nigeria</dd>
+        </div>
+        <div>
+          <dt>CGPA</dt>
+          <dd>3.55/5.00</dd>
+        </div>
+        <div>
+          <dt>Community</dt>
+          <dd>Member, GDG on Campus Babcock</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- 3. Projects -->
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <h2 id="projects-title">Projects</h2>
+
+      <article class="card">
+        <h3>ProposalAI</h3>
+        <p>Freelancers send a proposal by link; the client signs and pays via Stripe Checkout.</p>
+        <ul role="list" class="chips" aria-label="Tech used">
+          <li>Next.js</li>
+          <li>Supabase</li>
+          <li>Stripe</li>
+          <li>Claude API</li>
+        </ul>
+        <a href="https://wonderful-empanada-5026c5.netlify.app" target="_blank" rel="noopener">Visit ProposalAI<span class="visually-hidden"> (opens in a new tab)</span></a>
+      </article>
+
+      <article class="card">
+        <h3>ContractIQ</h3>
+        <p>Flags risky contract clauses and drafts counter-terms. Server-enforced free tier, 77 tests.</p>
+        <ul role="list" class="chips" aria-label="Tech used">
+          <li>Node.js</li>
+          <li>Serverless</li>
+          <li>Upstash Redis</li>
+        </ul>
+        <a href="https://contractiq-amber.vercel.app" target="_blank" rel="noopener">Visit ContractIQ<span class="visually-hidden"> (opens in a new tab)</span></a>
+      </article>
+
+      <article class="card">
+        <h3>VoiceMatch</h3>
+        <p>Turns rough spoken or typed drafts into professional messages. Hashed access codes, 102 tests.</p>
+        <ul role="list" class="chips" aria-label="Tech used">
+          <li>Node.js</li>
+          <li>Serverless</li>
+          <li>Upstash Redis</li>
+        </ul>
+        <a href="https://voicematch-lac.vercel.app" target="_blank" rel="noopener">Visit VoiceMatch<span class="visually-hidden"> (opens in a new tab)</span></a>
+      </article>
+    </section>
+
+    <!-- 4. Case study -->
+    <section id="story" class="section section-alt" aria-labelledby="story-title">
+      <h2 id="story-title">The bug I found in my own apps</h2>
+      <ol role="list" class="steps">
+        <li>
+          <h3>The problem</h3>
+          <p>API keys were visible in the page source of my live apps.</p>
+        </li>
+        <li>
+          <h3>The fix</h3>
+          <p>Revoked the keys and moved every API call to server-side functions.</p>
+        </li>
+        <li>
+          <h3>What I added</h3>
+          <p>Redis-backed rate limiting, a strict Content Security Policy, 200+ automated tests, and CI with secret scanning.</p>
+        </li>
+        <li>
+          <h3>The result</h3>
+          <p>6 apps re-architected, verified with smoke tests that attack the live sites.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5. Experience -->
+    <section id="experience" class="section" aria-labelledby="experience-title">
+      <h2 id="experience-title">Experience</h2>
+      <figure class="photo photo-banner" data-label="Photo: Sean coding (16:9)">
+        <img src="images/sean-03-code.jpg" width="1300" height="1097" loading="lazy" alt="Close-up of CSS code in a dark code editor on a laptop screen">
+        <figcaption>What I do</figcaption>
+      </figure>
+
+      <ol role="list" class="timeline">
+        <li>
+          <h3>Founder &amp; Full-Stack Developer</h3>
+          <p class="timeline-meta">SeanAI · <time datetime="2025">2025</time> – Present</p>
+        </li>
+        <li>
+          <h3>Freelance Web Developer</h3>
+          <p class="timeline-meta">Contra · <time datetime="2024">2024</time> – Present</p>
+          <p>21-page site for MayRock Family Psychiatry (US) plus a site for a second US client.</p>
+        </li>
+        <li>
+          <h3>Software Testing &amp; QA Trainee</h3>
+          <p class="timeline-meta">SQA Marshal Limited · <time datetime="2026-06">Jun</time> – <time datetime="2026-07">Jul 2026</time></p>
+          <p>Led a 5-person team: 10-section test plan, 40 test cases, 4 defects logged.</p>
+        </li>
+        <li>
+          <h3>Tech Support &amp; Repair Technician</h3>
+          <p class="timeline-meta">Independent, Lagos · <time datetime="2023">2023</time> – <time datetime="2024">2024</time></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6. Skills -->
+    <section id="skills" class="section section-alt" aria-labelledby="skills-title">
+      <h2 id="skills-title">Skills</h2>
+
+      <h3>Languages &amp; frameworks</h3>
+      <ul role="list" class="chips">
+        <li>JavaScript (Node.js)</li>
+        <li>Python</li>
+        <li>SQL</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Next.js</li>
+        <li>React</li>
+      </ul>
+
+      <h3>Cloud &amp; DevOps</h3>
+      <ul role="list" class="chips">
+        <li>Vercel</li>
+        <li>Netlify Functions</li>
+        <li>GitHub Actions</li>
+        <li>Git</li>
+        <li>Upstash Redis</li>
+        <li>Supabase</li>
+      </ul>
+
+      <h3>Security &amp; QA</h3>
+      <ul role="list" class="chips">
+        <li>Rate limiting</li>
+        <li>Input validation</li>
+        <li>CSP</li>
+        <li>Secret scanning</li>
+        <li>Automated testing</li>
+        <li>Test planning</li>
+      </ul>
+    </section>
+
+    <!-- 7. Gallery -->
+    <section id="gallery" class="section" aria-labelledby="gallery-title">
+      <h2 id="gallery-title">Off the screen</h2>
+      <div class="gallery">
+        <figure class="photo photo-large" data-label="Photo: gallery 1 (4:3)">
+          <button type="button" class="photo-open" aria-label="View photo 1 larger">
+            <img src="images/sean-04-pitch.jpg" width="942" height="628" loading="lazy" alt="Black-and-white photo of Sean standing on a football pitch while a teammate takes a shot in the background">
+          </button>
+          <figcaption>Off the keyboard.</figcaption>
+        </figure>
+        <figure class="photo photo-square" data-label="Photo: gallery 2 (1:1)">
+          <button type="button" class="photo-open" aria-label="View photo 2 larger">
+            <img src="images/sean-02-lecture.jpg" width="1600" height="900" loading="lazy" alt="Sean seen from behind, sitting in a lecture hall facing the screen at the front">
+          </button>
+          <figcaption>300 Level, Computer Science.</figcaption>
+        </figure>
+        <figure class="photo photo-square" data-label="Photo: gallery 3 (1:1)">
+          <button type="button" class="photo-open" aria-label="View photo 3 larger">
+            <img src="images/sean-05-street.jpg" width="1600" height="812" loading="lazy" alt="Sean outdoors under a cloudy sky, looking toward the camera">
+          </button>
+          <figcaption>Between builds.</figcaption>
+        </figure>
+        <figure class="photo photo-square" data-label="Photo: gallery 4 (1:1)">
+          <button type="button" class="photo-open" aria-label="View photo 4 larger">
+            <img src="images/sean-06-candid.jpg" width="1170" height="1109" loading="lazy" alt="Sean in a light green kaftan with a black lanyard, photographed from below and looking off to the side">
+          </button>
+          <figcaption>Mid-thought.</figcaption>
+        </figure>
+        <figure class="photo photo-square" data-label="Photo: gallery 5 (1:1)">
+          <button type="button" class="photo-open" aria-label="View photo 5 larger">
+            <img src="images/sean-07-building.jpg" width="1104" height="1600" loading="lazy" alt="Close selfie of Sean beside a laptop showing code on its screen">
+          </button>
+          <figcaption>Building, as usual.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 8. Contact -->
+    <section id="contact" class="section section-alt" aria-labelledby="contact-title">
+      <h2 id="contact-title">Building something? Let's talk.</h2>
+      <ul role="list" class="contact-list">
+        <li>
+          Email:
+          <a href="mailto:gozieokpara13@gmail.com" id="email-link">gozieokpara13@gmail.com</a>
+          <button type="button" class="copy-button" id="copy-email">Copy</button>
+          <span class="visually-hidden" id="copy-status" role="status"></span>
+        </li>
+        <li>Phone: <a href="tel:+2349011171863">+234 901 117 1863</a></li>
+        <li>GitHub: <a href="https://github.com/Seancss-23" target="_blank" rel="noopener">github.com/Seancss-23</a></li>
+        <li>LinkedIn: <a href="https://linkedin.com/in/sean-okpara-258790374" target="_blank" rel="noopener">linkedin.com/in/sean-okpara-258790374</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Hand-coded with HTML, CSS &amp; vanilla JavaScript. No templates.</p>
+    <p>Tip: add this site to your home screen.</p>
+    <p>&copy; 2026 Sean Okpara</p>
+  </footer>
+
+  <!-- Gallery lightbox: a native <dialog>, so the browser keeps focus inside while it is open -->
+  <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+    <div class="lightbox-body">
+      <button type="button" class="lightbox-close" id="lightbox-close">Close</button>
+      <figure class="lightbox-figure" id="lightbox-figure">
+        <figcaption id="lightbox-caption"></figcaption>
+      </figure>
+      <div class="lightbox-controls">
+        <button type="button" id="lightbox-prev">Previous</button>
+        <span id="lightbox-count" aria-live="polite"></span>
+        <button type="button" id="lightbox-next">Next</button>
+      </div>
+    </div>
+  </dialog>
+
+</body>
+</html>

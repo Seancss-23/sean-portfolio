@@ -1,0 +1,807 @@
+/* ==========================================================
+   Sean Okpara: personal site
+   1. Design tokens   2. Reset   3. Base typography
+   4. Layout          5. Components    6. Utilities
+   ========================================================== */
+
+/* ---------- 1. Design tokens ---------- */
+:root {
+  /* Colour (light) */
+  --bg: #FAF7F0;
+  --surface: #FFFFFF;
+  --surface-alt: #F4EFE4;
+  --border: #E7E0D2;
+  --text: #1F2420;
+  --muted: #60645C;
+  --accent: #2E4D28;
+
+  /* Spacing: 8px scale */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-12: 96px;
+
+  /* Shape */
+  --radius: 12px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+
+  /* Type */
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Layout */
+  --content-width: 960px;
+  --section-padding: var(--space-8);   /* 64px on mobile */
+
+  /* Side padding that keeps content at most --content-width wide and centred.
+     Never smaller than 24px; on wide screens it grows to fill the extra space. */
+  --gutter: max(var(--space-3), calc((100% - var(--content-width)) / 2));
+}
+
+/* Dark palette: used when the OS prefers dark and the user hasn't chosen a theme */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141612;
+    --surface: #1C1F1A;
+    --surface-alt: #181B16;
+    --border: #2C302A;
+    --text: #ECE8DE;
+    --muted: #A7A99F;
+    --accent: #8FB381;
+  }
+}
+
+/* Dark palette: used when the user picks dark with the toggle (Step 5) */
+:root[data-theme="dark"] {
+  --bg: #141612;
+  --surface: #1C1F1A;
+  --surface-alt: #181B16;
+  --border: #2C302A;
+  --text: #ECE8DE;
+  --muted: #A7A99F;
+  --accent: #8FB381;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-padding: var(--space-12);   /* 96px on tablet and up */
+  }
+}
+
+/* ---------- 2. Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1, h2, h3,
+p, ul, ol, dl, dd,
+figure {
+  margin: 0;
+}
+
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;   /* keeps the ratio set by the width/height attributes */
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* ---------- 3. Base typography ---------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--space-2);   /* desktop raises this so sections aren't hidden under the top nav */
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;          /* 16px */
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  padding-bottom: calc(57px + env(safe-area-inset-bottom));   /* room for the mobile tab bar */
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1.0625rem;   /* 17px */
+  }
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.125rem; }
+
+@media (min-width: 768px) {
+  h1 { font-size: 3.5rem; }
+  h2 { font-size: 2.25rem; }
+}
+
+p {
+  max-width: 65ch;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+/* ---------- 4. Layout ---------- */
+/* The section stays full width (so its background reaches both edges);
+   the --gutter side padding keeps the content centred. */
+.section,
+.hero {
+  padding: var(--section-padding) var(--gutter);
+}
+
+.section-alt {
+  background: var(--surface-alt);
+}
+
+.section > h2 {
+  margin-bottom: var(--space-4);
+}
+
+/* ---------- 5. Components ---------- */
+
+/* Keyboard focus ring: visible everywhere */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Hero */
+.hero-prompt {
+  min-height: 1.6em;   /* keeps the height steady while the line is typed out */
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  color: var(--muted);
+  margin-bottom: var(--space-2);
+}
+
+.hero-subtitle {
+  margin-top: var(--space-2);
+  font-size: 1.125rem;
+  color: var(--muted);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+  padding: 6px var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.9375rem;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* Buttons: at least 44px tall for easy tapping */
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--text);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.button-primary {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--text);
+}
+
+.button:hover {
+  border-color: var(--accent);
+}
+
+.button-secondary:hover {
+  color: var(--accent);
+}
+
+/* Photos: the image sits on top of an (optional) placeholder box in the same grid cell */
+.photo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.photo img {
+  grid-area: 1 / 1;
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.photo figcaption {
+  grid-area: 2 / 1;
+  margin-top: var(--space-1);
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.photo-portrait img { aspect-ratio: 4 / 5; }
+.photo-banner img   { aspect-ratio: 16 / 9; }
+.photo-large img    { aspect-ratio: 4 / 3; }
+
+/* The large gallery photo has its subject near the right edge, so anchor the crop there.
+   Same value on phone (4:3) and desktop (near-square) keeps the framing consistent. */
+.photo-large img {
+  object-position: 90% center;
+}
+.photo-square img   { aspect-ratio: 1 / 1; }
+
+/* script.js adds .is-missing when the image file can't be loaded */
+.photo.is-missing img {
+  visibility: hidden;
+}
+
+.photo.is-missing::before {
+  content: attr(data-label);
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  padding: var(--space-2);
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+/* About: photo above the text on mobile */
+#about {
+  display: grid;
+  row-gap: var(--space-3);
+}
+
+#about > h2 {
+  margin-bottom: var(--space-1);   /* 8px + 24px row gap = 32px, same as other sections */
+}
+
+.photo-portrait {
+  max-width: 320px;
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+}
+
+.facts div {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border);
+}
+
+.facts dt {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.facts dd {
+  font-weight: 500;
+}
+
+/* Chips (tech tags) */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.chips li {
+  padding: 4px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.section-alt .chips li {
+  background: var(--surface);
+}
+
+/* Projects */
+#projects {
+  display: grid;
+  gap: var(--space-3);
+}
+
+#projects > h2 {
+  margin-bottom: var(--space-1);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.card h3 {
+  margin-bottom: var(--space-1);
+}
+
+.card .chips {
+  margin: var(--space-2) 0 var(--space-3);
+}
+
+.card a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: auto;   /* pushes the link to the bottom so all cards line up */
+  font-weight: 500;
+}
+
+/* Case study */
+.steps {
+  display: grid;
+  gap: var(--space-3);
+  counter-reset: step;
+}
+
+.steps li {
+  padding: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--accent);
+}
+
+.steps h3 {
+  margin-bottom: var(--space-1);
+}
+
+/* Experience */
+.photo-banner {
+  margin-bottom: var(--space-6);
+}
+
+.timeline {
+  margin-left: var(--space-1);
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--border);
+}
+
+.timeline li {
+  position: relative;
+  padding-bottom: var(--space-4);
+}
+
+.timeline li:last-child {
+  padding-bottom: 0;
+}
+
+/* The small dot that sits on the vertical line */
+.timeline li::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: -29px;   /* 24px padding + 0.5px line + 4.5px (half the dot) */
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.timeline-meta {
+  margin: 4px 0 var(--space-1);
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* Skills */
+#skills h3 {
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+#skills h3:first-of-type {
+  margin-top: 0;
+}
+
+/* Gallery: swipe row on mobile */
+.gallery {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  padding-bottom: var(--space-2);
+}
+
+.gallery .photo {
+  flex: 0 0 80%;
+  align-self: flex-start;
+  scroll-snap-align: start;
+}
+
+/* Contact */
+.contact-list {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.contact-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  overflow-wrap: anywhere;   /* lets the long LinkedIn URL wrap on small phones */
+}
+
+.contact-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Small outlined buttons: copy, theme toggle, lightbox controls */
+.copy-button,
+.theme-toggle,
+.lightbox button {
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.copy-button:hover,
+.theme-toggle:hover,
+.lightbox button:hover {
+  border-color: var(--accent);
+}
+
+/* Gallery photo buttons (open the lightbox) */
+.photo-open {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  cursor: zoom-in;
+}
+
+/* Navigation: bottom tab bar on mobile */
+.site-header {
+  position: relative;
+}
+
+.site-nav {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.site-nav ul {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.site-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 4px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  box-shadow: inset 0 2px 0 transparent;   /* becomes the accent line on the active tab */
+}
+
+.site-nav a[aria-current="location"] {
+  color: var(--accent);
+  box-shadow: inset 0 2px 0 var(--accent);
+}
+
+/* Theme toggle floats top-right on mobile and scrolls away with the page */
+.theme-toggle {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-3);
+  z-index: 10;
+}
+
+/* Lightbox */
+.lightbox {
+  width: min(92vw, 960px);
+  max-height: 92vh;
+  padding: 0;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.lightbox::backdrop {
+  background: rgba(20, 22, 18, 0.85);
+}
+
+html:has(.lightbox[open]) {
+  overflow: hidden;   /* stops the page scrolling behind the open lightbox */
+}
+
+.lightbox-body {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+.lightbox-close {
+  justify-self: end;
+}
+
+.lightbox-figure img {
+  width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+.lightbox-figure figcaption {
+  margin-top: var(--space-1);
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.lightbox-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* Fade-in on scroll: script.js adds .fade-in, then .is-visible once the section is on screen */
+.fade-in {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Footer */
+.site-footer {
+  padding: var(--space-6) var(--gutter);
+  border-top: 1px solid var(--border);
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.site-footer p + p {
+  margin-top: var(--space-1);
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+
+  html {
+    scroll-padding-top: 80px;   /* clears the fixed top nav */
+  }
+
+  body {
+    padding-bottom: 0;   /* no tab bar on tablet and up */
+  }
+
+  /* Navigation becomes a fixed top bar */
+  .site-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 var(--gutter);
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .site-nav {
+    position: static;
+    padding-bottom: 0;
+    background: none;
+    border-top: 0;
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  .site-nav a {
+    padding: 0 var(--space-2);
+    font-size: 0.9375rem;
+    box-shadow: inset 0 -2px 0 transparent;
+  }
+
+  .site-nav a[aria-current="location"] {
+    box-shadow: inset 0 -2px 0 var(--accent);
+  }
+
+  .site-nav a:hover {
+    color: var(--text);
+  }
+
+  .theme-toggle {
+    position: static;
+  }
+
+  /* About: photo beside the text */
+  #about {
+    grid-template-columns: 320px 1fr;
+    column-gap: var(--space-6);
+    align-items: start;
+  }
+
+  #about > h2 {
+    grid-column: 1 / -1;
+  }
+
+  .photo-portrait {
+    grid-row: 2 / span 2;
+  }
+
+  .steps {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Gallery: one large photo + four squares */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    overflow: visible;
+    padding-bottom: 0;
+  }
+
+  .gallery .photo {
+    align-self: start;
+  }
+
+  .gallery .photo-large {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+    align-self: stretch;
+    grid-template-rows: 1fr auto;
+  }
+
+  .gallery .photo-large img {
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: auto;   /* fills the space next to the four squares */
+  }
+}
+
+@media (min-width: 900px) {
+  #projects {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #projects > h2 {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- 6. Utilities ---------- */
+
+/* Text for screen readers only */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link: off-screen until it receives keyboard focus */
+.skip-link {
+  position: absolute;
+  top: var(--space-1);
+  left: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  z-index: 100;
+}
+
+/* Respect "reduce motion" settings: no smooth scrolling, no fades */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
